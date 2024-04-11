@@ -80,16 +80,19 @@ const displayMovements = function (movements) {
 
 displayMovements(account1.movements);
 
-const createUsernames = function (user) {
-  const username = user
-    .toLowerCase()
-    .split(' ')
-    .map(name => name[0])
-    .join('');
-  return username;
+const createUsernames = function (accs) {
+  accs.forEach(function (acc) {
+    acc.username = acc.owner
+      .toLowerCase()
+      .split(' ')
+      .map(name => name[0])
+      .join('');
+  });
 };
+createUsernames(accounts);
+console.log(accounts);
 
-console.log(createUsernames('Steven Thomas Williams')); // stw
+// console.log(createUsernames('Steven Thomas Williams')); // stw
 
 // const createUsernames = function (accs) {
 //   accs.forEach(function (acc) {
@@ -230,3 +233,17 @@ const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 //     }(mov)`
 // );
 // console.log(movementsDescriptions);
+
+const deposits = movements.filter(function (mov) {
+  return mov > 0;
+});
+
+console.log(movements);
+console.log(deposits);
+
+const depositsFor = [];
+for (const mov of movements) if (mov > 0) depositsFor.push(mov);
+console.log(depositsFor);
+
+const withdrawals = movements.filter(mov => mov < 0);
+console.log(withdrawals);
