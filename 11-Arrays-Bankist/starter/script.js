@@ -78,8 +78,6 @@ const displayMovements = function (movements) {
   });
 };
 
-displayMovements(account1.movements);
-
 const createUsernames = function (accs) {
   accs.forEach(function (acc) {
     acc.username = acc.owner
@@ -97,27 +95,57 @@ const calcDisplayBalance = function (movements) {
   labelBalance.textContent = `${balance}€`;
 };
 
-calcDisplayBalance(account1.movements);
-
-const calcDisplaySummary = function (movements) {
-  const incomes = movements
+const calcDisplaySummary = function (acc) {
+  const incomes = acc.movements
     .filter(mov => mov > 0)
     .reduce((acc, mov) => acc + mov, 0);
   labelSumIn.textContent = `${incomes}`;
 
-  const out = movements
+  const out = acc.movements
     .filter(mov => mov < 0)
     .reduce((acc, mov) => acc + mov, 0);
   labelSumOut.textContent = `${Math.abs(out)}€`;
 
-  const interest = movements
+  const interest = acc.movements
     .filter(mov => mov > 0)
-    .map(deposit => (deposit * 1.2) / 100)
+    .map(deposit => (deposit * acc.interestRate) / 100)
     .reduce((acc, int) => acc + int, 0);
   labelSumInterest.textContent = `${interest}€`;
 };
 
-calcDisplaySummary(account1.movements);
+createUsernames(accounts);
+
+// Event handler
+let currentAccount;
+
+btnLogin.addEventListener('click', function (e) {
+  // Prevent for from submitting
+  e.preventDefault();
+
+  currentAccount = accounts.find(
+    acc => acc.username === inputLoginUsername.value
+  );
+  console.log('LOGIN');
+  console.log(currentAccount);
+
+  if (currentAccount?.pin === Number(inputLoginPin.value)) {
+    // Display UI and message
+    labelWelcome.textContent = `Welcome back, ${
+      currentAccount.owner.split(' ')[0]
+    }`;
+    containerApp.style.opacity = 100;
+
+    // Clear input fields
+    inputLoginUsername.value = inputLoginPin.value = '';
+    inputLoginPin.blur();
+    // Display movements
+    displayMovements(currentAccount.movements);
+    // Display Balance
+    calcDisplayBalance(currentAccount.movements);
+    // Display Summary
+    calcDisplaySummary(currentAccount);
+  }
+});
 
 // console.log(createUsernames('Steven Thomas Williams')); // stw
 
@@ -298,11 +326,18 @@ const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 const eurToUsd = 1.1;
 
 // Pipeline
-const totalDepositsUSD = movements
-  .filter(mov => mov > 0)
-  .map((mov, i, arr) => {
-    // console.log(arr);
-    return mov * eurToUsd;
-  })
-  .reduce((acc, mov) => acc + mov, 0);
-console.log(totalDepositsUSD);
+// const totalDepositsUSD = movements
+//   .filter(mov => mov > 0)
+//   .map((mov, i, arr) => {
+//     // console.log(arr);
+//     return mov * eurToUsd;
+//   })
+//   .reduce((acc, mov) => acc + mov, 0);
+// console.log(totalDepositsUSD);
+
+const firstWithdrawal = movements.find(mov => mov < 0);
+console.log(movements);
+console.log(firstWithdrawal);
+
+const account = accounts.find(acc => acc.owner === 'Jessica Davis');
+console.log(account);
