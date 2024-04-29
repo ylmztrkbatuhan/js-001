@@ -130,7 +130,7 @@ createUsernames(accounts);
 //   ['GBP', 'Pound sterling'],
 // ]);
 
-// const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 /////////////////////////////////////////////////
 /*
@@ -260,7 +260,7 @@ const withdrawals = movements.filter(mov => mov < 0);
 console.log(withdrawals);
 */
 
-const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+// const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 console.log(movements);
 //accumulator -> snowball
@@ -270,24 +270,33 @@ console.log(movements);
 //   return acc + cur;
 // }, 0);
 
-const balance = movements.reduce((acc, cur) => acc + cur, 0);
-console.log(balance);
-let balance2 = 0;
-for (const mov of movements) balance2 += mov;
-console.log(balance2);
+// const balance = movements.reduce((acc, cur) => acc + cur, 0);
+// console.log(balance);
+// let balance2 = 0;
+// for (const mov of movements) balance2 += mov;
+// console.log(balance2);
 
 // Maximum value
 
-const max = movements.reduce((acc, mov) => {
-  if (acc > mov) return acc;
-  else return mov;
-}, movements[0]);
-console.log(max);
+// const max = movements.reduce((acc, mov) => {
+//   if (acc > mov) return acc;
+//   else return mov;
+// }, movements[0]);
+// console.log(max);
 
-//Pipeline
-const eurToUsd = 1.1;
-const totalDepositUSD = movements
-  .filter(mov => mov > 0)
-  .map(mov => mov * eurToUsd)
-  .reduce((acc, mov) => acc + mov, 0);
-console.log(totalDepositUSD);
+// Pipeline
+// const eurToUsd = 1.1;
+// const totalDepositUSD = movements
+//   .filter(mov => mov > 0)
+//   .map(mov => mov * eurToUsd)
+//   .reduce((acc, mov) => acc + mov, 0);
+// console.log(totalDepositUSD);
+
+const firstWithdrawal = movements.find(mov => mov < 0);
+console.log(movements);
+console.log(firstWithdrawal);
+
+console.log(accounts);
+
+const account = accounts.find(acc => acc.owner === 'Jessica Davis');
+console.log(account);
