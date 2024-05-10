@@ -393,3 +393,34 @@ console.log(huge + ' is Really big!!!');
 //Divisions
 console.log(10n / 3n);
 console.log(10 / 3);
+
+//Create a date
+
+const now = new Date();
+console.log(now);
+
+console.log(new Date('December 24, 2024'));
+console.log(new Date(account1.movementsDates[0]));
+
+// console.log(new date(2037, 10, 19, 15, 23, 5));
+
+//Working with dates
+
+const future = new Date(2037, 10, 19, 15, 23);
+console.log(future);
+console.log(future.getFullYear());
+console.log(future.getMonth());
+console.log(future.getDate());
+console.log(future.getDay());
+console.log(future.getHours());
+console.log(future.getMinutes());
+console.log(future.getSeconds());
+console.log(future.toISOString());
+console.log(future.getTime());
+
+console.log(new Date(9264692848998));
+
+console.log(Date.now());
+
+future.setFullYear(2040);
+console.log(future);
