@@ -110,3 +110,12 @@ console.log(logo.getAttribute('src'));
 const link = document.querySelector('.twitter-link');
 console.log(link.href);
 console.log(link.getAttribute('href'));
+
+// Data attribbutes
+console.log(logo.CDATA_SECTION_NODE.versionNumber);
+
+// Classes
+logo.classList.add();
+logo.classList.remove();
+logo.classList.toggle();
+logo.classList.contains();
