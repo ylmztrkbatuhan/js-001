@@ -254,7 +254,7 @@ tabsContainer.addEventListener('click', function (e) {
 
   // Guard clause
   if (!clicked) return;
-  //Active tab
+  //Remove active classes
   tabs.forEach(t => t.classList.remove('operations__tab--active'));
   tabsContent.forEach(c => c.classList.remove('operations__content--active'));
 
@@ -265,3 +265,13 @@ tabsContainer.addEventListener('click', function (e) {
     .querySelector(`.operations__content--${clicked.dataset.tab}`)
     .classList.add('operations__content--active');
 });
+
+//Menu fade aimation
+nav.addEventListener('mouseover', function (e) {
+  if (e.target.classList.contains('nav__link')) {
+    const link = e.target;
+    const siblings = link.closest('.nav').querySelector('.nav__link');
+  }
+});
+
+nav.addEventListener('mouseover', function (e) {});
