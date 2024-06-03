@@ -122,6 +122,21 @@ tabs.forEach(t => t.addEventListener('click', () => console.log('TAB')));
 tabsContainer.addEventListener('click', function (e) {
   const clicked = e.target.closest('.operations__tab');
   console.log(clicked);
+
+  //Guard clause
+  if (!clicked) return;
+
+  // remove the active classes
+  tabs.forEach(t => t.classList.remove('operations__tab--active'));
+  tabsContent.forEach(c => c.classList.remove('operations__content--active'));
+
+  // Activate tab
+  clicked.classList.add('operations__tab--active');
+
+  //Active content area
+  document
+    .querySelector(`.operations__content--${clicked.dataset.tab}`)
+    .classList.add('operations__content--active');
 });
 //////////////////////////////////////////////////////////////////////////////////
 
@@ -256,9 +271,9 @@ h1.lastElementChild.style.color = 'orangered';
 console.log(h1.parentNode);
 console.log(h1.parentElement);
 
-h1.closest('.header').style.background = 'var(--gradient-secondary)';
+// h1.closest('.header').style.background = 'var(--gradient-secondary)';
 
-h1.closest('.header').style.background = 'var(--gradient-primary)';
+// h1.closest('.header').style.background = 'var(--gradient-primary)';
 
 //Going sideways : siblings
 
