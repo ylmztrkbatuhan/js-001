@@ -4,7 +4,7 @@ const nav = document.querySelector('.nav');
 const tabs = document.querySelectorAll('.operations__tab');
 const tabsContainer = document.querySelector('.operations__tab-container');
 const tabsContent = document.querySelectorAll('.operations__content');
-
+const section1 = document.querySelector('#section--1');
 tabs.forEach(t => t.addEventListener('click', () => console.log('TAB')));
 
 tabsContainer.addEventListener('click', function (e) {
@@ -172,6 +172,16 @@ nav.addEventListener('mouseout', function (e) {
 
 nav.addEventListener('mouseover', handleHover.bind(0.5));
 nav.addEventListener('mouseout', handleHover.bind(1));
+
+//Sticky navigation
+const initialCoords = section1.getBoundingClientRect();
+
+window.addEventListener('scroll', function () {
+  console.log(window.scrollY);
+
+  if (window.scrollY > initialCoords.top) nav.classList.add('sticky');
+  else nav.classList.remove('sticky');
+});
 
 //////////////////////////////////////////////////////////////////////////////////
 
