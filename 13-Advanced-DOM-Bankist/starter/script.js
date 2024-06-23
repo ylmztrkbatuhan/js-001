@@ -219,7 +219,7 @@ document.querySelector('.nav').addEventListener('click', function (e) {
 // const h1 = document.querySelector('h1');
 
 //Going downwards child
-
+/*
 console.log(h1.querySelectorAll('.highlight'));
 
 console.log(h1.childNodes);
@@ -246,4 +246,32 @@ console.log(h1.nextSibling);
 console.log(h1.parentElement.children);
 [...h1.parentElement.children].forEach(function (el) {
   if (el !== h1) el.style.transform = 'scale(0.5)';
+});
+*/
+
+//Tabbed component
+
+const tabs = document.querySelectorAll('.operations__tab');
+const tabsContainer = document.querySelector('.operations__tab-container');
+const tabsContent = document.querySelectorAll('.operations__content');
+
+// tabs.forEach(t => t.addEventListener('click', () => console.log('TAB')));
+
+tabsContainer.addEventListener('click', function (e) {
+  const clicked = e.target.closest('.operations__tab');
+  console.log(clicked);
+
+  console.log(clicked);
+
+  //Guard clause
+  if (!clicked) return;
+
+  //Active tab
+  tabs.forEach(t => t.classList.remove('operations__tab--active'));
+
+  clicked.classList.add('operations__tab--active');
+
+  //Activate content area
+
+  document.querySelector(`.operations__content--`);
 });
