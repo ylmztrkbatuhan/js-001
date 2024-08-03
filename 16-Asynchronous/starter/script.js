@@ -1,5 +1,5 @@
 'use strict';
-/*
+
 const btn = document.querySelector('.btn-country');
 const countriesContainer = document.querySelector('.countries');
 
@@ -24,7 +24,7 @@ const renderCountry = function (data, className = '') {
 const getCountryAndNeighbour = function (country) {
   // AJAX call country 1
   const request = new XMLHttpRequest();
-  request.open('GET', `https://restcountries.com/v3.1/name/${country}`);
+  request.open('GET', `https://restcountries.com/v2/name/${country}`);
   request.send();
   console.log(request.responseText);
 
@@ -57,4 +57,3 @@ const getCountryAndNeighbour = function (country) {
 
 getCountryAndNeighbour('deutschland');
 getCountryAndNeighbour('portugal');
-*/
