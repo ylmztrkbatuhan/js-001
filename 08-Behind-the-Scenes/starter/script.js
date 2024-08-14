@@ -1,7 +1,9 @@
 'use strict';
 
-/////////////////////////////
-//Scoping in practice
+///////////////////////////////////////
+// Scoping in Practice
+
+/*
 function calcAge(birthYear) {
   const age = 2037 - birthYear;
 
@@ -38,3 +40,4 @@ const firstName = 'Jonas';
 calcAge(1991);
 // console.log(age);
 // printAge();
+*/
