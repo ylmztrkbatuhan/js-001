@@ -87,7 +87,7 @@ const z = 3;
 console.log(x === window.x);
 console.log(y === window.y);
 console.log(z === window.z);
-*/
+
 
 ///////////////////////////////////////
 // The this Keyword in Practice
@@ -123,3 +123,4 @@ matilda.calcAge();
 
 const f = jonas.calcAge;
 f();
+*/
