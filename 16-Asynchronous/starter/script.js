@@ -176,46 +176,84 @@ const countriesContainer = document.querySelector('.countries');
 
 ///////////////////////////////////////
 // The Event Loop in Practice
-console.log('Test start');
-setTimeout(() => console.log('0 sec timer'), 0);
-Promise.resolve('Resolved promise 1').then(res => console.log(res));
+// console.log('Test start');
+// setTimeout(() => console.log('0 sec timer'), 0);
+// Promise.resolve('Resolved promise 1').then(res => console.log(res));
 
-Promise.resolve('Resolved promise 2').then(res => {
-  for (let i = 0; i < 1000000000; i++) {}
-  console.log(res);
-});
+// Promise.resolve('Resolved promise 2').then(res => {
+//   for (let i = 0; i < 1000000000; i++) {}
+//   console.log(res);
+// });
 
-console.log('Test end');
+// console.log('Test end');
 
-//////////////////BUilding Simple Promise//////////////////////////
+// //////////////////BUilding Simple Promise//////////////////////////
 
-const lotteryPromise = new Promise(function (resolve, reject) {
-  console.log('Lottery draw is happening.🤷‍♀️');
-  setTimeout(function () {
-    if (Math.random() >= 0.5) {
-      resolve('YOU WIN ♥');
-    } else {
-      reject(new Error('You Lost Your Money 😋 '));
-    }
-  }, 2000);
-});
+// const lotteryPromise = new Promise(function (resolve, reject) {
+//   console.log('Lottery draw is happening.🤷‍♀️');
+//   setTimeout(function () {
+//     if (Math.random() >= 0.5) {
+//       resolve('YOU WIN ♥');
+//     } else {
+//       reject(new Error('You Lost Your Money 😋 '));
+//     }
+//   }, 2000);
+// });
 
-lotteryPromise.then(res => console.log(res)).catch(err => console.log(err));
+// lotteryPromise.then(res => console.log(res)).catch(err => console.log(err));
 
-//Promisifying setTimeout
-const wait = function (seconds) {
-  return new Promise(function (resolve) {
-    setTimeout(resolve, seconds * 1000);
+// //Promisifying setTimeout
+// const wait = function (seconds) {
+//   return new Promise(function (resolve) {
+//     setTimeout(resolve, seconds * 1000);
+//   });
+// };
+
+// wait(2)
+//   .then(() => {
+//     console.log('I waited for 2 seconds');
+//     return wait(1);
+//   })
+//   .then(() => console.log('I waited for 1 seconds'));
+
+// Promise.resolve('abc').then(x => console.log(x));
+// Promise.resolve('abc').catch(x => console.error(x));
+// console.log(x);
+/////////////////Promisifying geolocation api///////////////////
+
+const getPosition = function () {
+  return new Promise(function (resolve, reject) {
+    // navigator.geolocation.getCurrentPosition(
+    //   position => resolve(position),
+    //   err => reject(err)
+    // );
+    navigator.geolocation.getCurrentPosition(resolve, reject);
   });
 };
 
-wait(2)
-  .then(() => {
-    console.log('I waited for 2 seconds');
-    return wait(1);
-  })
-  .then(() => console.log('I waited for 1 seconds'));
+getPosition().then(pos => console.log(pos));
 
-Promise.resolve('abc').then(x => console.log(x));
-Promise.resolve('abc').catch(x => console.error(x));
-console.log(x);
+const whereAmI = function () {
+  getPosition()
+    .then(pos => {
+      const { latitude: lat, longitude: lng } = pos.coords;
+
+      return fetch(`https://geocode.xyz/${lat},${lng}?geoit=json`);
+    })
+    .then(res => {
+      if (!res.ok) throw new Error(`Problem with geocoding ${res.status}`);
+      return res.json();
+    })
+    .then(data => {
+      console.log(data);
+      console.log(`You are in ${data.city}, ${data.country}`);
+
+      return fetch(`https://restcountries.eu/rest/v2/name/${data.country}`);
+    })
+    .then(res => {
+      if (!res.ok) throw new Error(`Country not found (${res.status})`);
+
+      return res.json();
+    });
+};
+btn.addEventListener('click', whereAmI);
